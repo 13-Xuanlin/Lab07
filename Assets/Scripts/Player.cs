@@ -11,7 +11,8 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
     public Text scoreText;
     private int score = 0;
-
+    public AudioClip Point;
+    public AudioSource audioSource;
 
     void Start()
     {
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
         {
             score++;
             scoreText.text = "SCORE: " + score;
+            audioSource.PlayOneShot(Point);
 
         }
     }
