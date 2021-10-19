@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
@@ -8,6 +9,9 @@ public class Player : MonoBehaviour
     private Animation thisAnimation;
     public float Fly;
     private Rigidbody rb;
+    public Text scoreText;
+    private int score = 0;
+
 
     void Start()
     {
@@ -32,13 +36,21 @@ public class Player : MonoBehaviour
             rb.velocity = Vector3.zero;
             rb.AddForce(new Vector3(0, Fly, 0));
         }
+     
     }
     private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.tag == "Obstacle")
         {
             SceneManager.LoadScene("LoseScene");
-            
+
+        }
+        if (collision.gameObject.tag == "Point")
+        {
+            score++;
+            scoreText.text = "SCORE: " + score;
+
         }
     }
+
 }
