@@ -6,10 +6,12 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     private Animation thisAnimation;
-    public float Speed;
+    public float Fly;
+    private Rigidbody rb;
 
     void Start()
     {
+        rb = GetComponent<Rigidbody>();
         thisAnimation = GetComponent<Animation>();
         thisAnimation["Flap_Legacy"].speed = 3;
     }
@@ -18,14 +20,18 @@ public class Player : MonoBehaviour
     {
         if (transform.position.y < -5)
         {
-            transform.position = new Vector3(0, 0, 0);
+            SceneManager.LoadScene("LoseScene");
         }
-        if (transform.position.y <= 3.5)
+        if (transform.position.y >= 3.5)
         {
-            transform.position += new UnityEngine.Vector3(0, 0, Time.deltaTime * Speed);
+            rb.velocity = Vector3.zero;
         }
         if (Input.GetKeyDown(KeyCode.Space))
+        {
             thisAnimation.Play();
+            rb.velocity = Vector3.zero;
+            rb.AddForce(new Vector3(0, Fly, 0));
+        }
     }
     private void OnTriggerEnter(Collider collision)
     {
