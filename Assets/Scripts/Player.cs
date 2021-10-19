@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
         if (transform.position.y >= 3.5)
         {
             rb.velocity = Vector3.zero;
+            transform.position = new Vector3(transform.position.x, 3.5f, transform.position.z);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -51,8 +52,15 @@ public class Player : MonoBehaviour
             score++;
             scoreText.text = "SCORE: " + score;
             audioSource.PlayOneShot(Point);
-
+            CheckScore();
         }
     }
 
+    public void CheckScore()
+    {
+        if (score >= 10)
+        {
+            SceneManager.LoadScene("WinScene");
+        }
+    }
 }
